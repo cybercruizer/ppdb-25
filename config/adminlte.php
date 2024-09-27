@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>PPDB</b>2024',
+    'logo' => '<b>PPDB</b>2025',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,

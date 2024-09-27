@@ -13,8 +13,8 @@
 <body>
     <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-info navigation-clean-search"
         style="padding: 5px;background: rgb(25,111,190);">
-        <div class="container-fluid"><a class="navbar-brand" style="color:#eeeeee;" href="#">Form PPDB 2024/
-                2025</a><button class="navbar-toggler" data-toggle="collapse"><span class="sr-only">Toggle
+        <div class="container-fluid"><a class="navbar-brand" style="color:#eeeeee;" href="#">Form PPDB 2025/
+                2026</a><button class="navbar-toggler" data-toggle="collapse"><span class="sr-only">Toggle
                     navigation</span><span class="navbar-toggler-icon"></span></button></div>
     </nav>
     <form method="post" action="/pendaftar/store">
