@@ -313,7 +313,13 @@ return [
         ],
         [
             'text'        => 'Tahun Ajaran',
-            'url'         => 'ta',
+            'url'         => 'admin/ta',
+            'icon'        => 'far fa-fw fa-star',
+        ],
+
+        [
+            'text'        => 'Gelombang',
+            'url'         => 'admin/gelombang',
             'icon'        => 'far fa-fw fa-star',
         ],
 

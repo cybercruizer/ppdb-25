@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user()->name;
-        return view('profile', compact('user'));
+        $title = 'Profile';
+        return view('profile', compact('user','title'));
     }
 
     /**
@@ -42,7 +44,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -62,9 +64,12 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->update(['password' => bcrypt($request->password)]);
+        alert()->success('Sukses!','Password berhasil diubah');
+        return redirect()->back();
     }
 
     /**

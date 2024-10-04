@@ -2,23 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Ortu;
 use App\Models\Siswa;
+use App\Models\Gelombang;
 use Illuminate\Http\Request;
 use App\Models\Bendahara\Tagihan;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class FormController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
+        $validator=Validator::make($request->all(),
+        [
             'nama' => 'required',
             'no_telp' => 'required',
             'nama_ayah' => 'required',
             'alamat' => 'required',
             'tgl_lahir'=> 'required',
-            'captcha' => 'required|captcha'
+            'captcha' => 'required|captcha',
+            'jenis_kelamin' => 'required',
         ]);
+        if ($validator->fails())
+        {
+            //$errors=$validator->errors()->getMessages();
+            //dd($errors);
+            alert()->error('Error','Ada kesalahan dalam input');
+            return back()->withInput();
+        }
+        $tanggal_daftar = Carbon::now();
+        $gelombang= Gelombang::whereDate('tanggal_awal','<=',$tanggal_daftar)->whereDate('tanggal_akhir','>=',$tanggal_daftar)->select('id','daftar_ulang')->first();
+        //dd($gelombang->daftar_ulang);
+        if($request->jenis_kelamin=="L"){
+            $du=$gelombang->daftar_ulang;
+        } else {
+            $du=$gelombang->daftar_ulang+100000;
+        }
         $data=$request->all();
 
         $siswa = new Siswa;
@@ -59,14 +80,14 @@ class FormController extends Controller
         #$ortu -> alamat_wali = $data['alamat_wali'];
         #$ortu -> telp_wali = $data['telp_wali'];
         $ortu -> save();
-
-        $nominal_tagihan = 2000000; //ganti sesuai gelombang daftar
+        //ganti sesuai gelombang daftar
         $tagihan = new Tagihan;
         $tagihan -> siswa_id = $siswa->id;
         $tagihan -> nama_tagihan = "ppdb";
-        $tagihan -> nominal = $nominal_tagihan;
+        $tagihan -> nominal = $du;
         $tagihan -> save();
 
-        return redirect()->back()->with('status','Data berhasil diinput');
+        alert()->success('Sukses!','Data berhasil diinput');
+        return redirect()->back();
     }
 }

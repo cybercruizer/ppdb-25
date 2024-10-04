@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/Navbar-vmnt.css') }}">
+    
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-info navigation-clean-search"
         style="padding: 5px;background: rgb(25,111,190);">
         <div class="container-fluid"><a class="navbar-brand" style="color:#eeeeee;" href="#">Form PPDB 2025/
@@ -84,7 +86,7 @@
                     <div class="form-group row">
                         <label for="tgl_lahir" class="col-4 col-form-label">Tanggal Lahir</label>
                         <div class="col-8">
-                            <input value="{{old('tanggal_lahir')}}" class="form-control" type="date" name="tgl_lahir">
+                            <input value="{{old('tgl_lahir')}}" class="form-control" type="date" name="tgl_lahir">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -129,7 +131,7 @@
                     <div class="form-group row">
                         <label for="alamat" class="col-4 col-form-label">Alamat Lengkap</label>
                         <div class="col-8">
-                            <textarea value="{{old('alamat')}}" id="alamat" name="alamat" cols="40" rows="5" class="form-control"></textarea>
+                            <textarea id="alamat" name="alamat" cols="40" rows="5" class="form-control">{{old('alamat')}}</textarea>
                         </div>
                     </div>
                     <div class="form-group mt-4 mb-4">
