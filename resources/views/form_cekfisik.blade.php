@@ -83,13 +83,13 @@
                     </div>
                     <div class="form-group row">
                         <label for="jenis_kelamin" class="col-4 col-form-label">Jenis Kelamin</label>
-                        <div class="col-md-2">
+                        <div class="col-6">
                             <input class="form-control" name="jenis_kelamin" id="jenis_kelamin" disabled>
                         </div>
                     </div>
                   <div class="form-group row">
                         <label for="tinggi" class="col-4 col-form-label">Tinggi badan</label>
-                        <div class="col-md-3 input-group">
+                        <div class="col-md-3 col-8 input-group">
                             <input value="{{old('tinggi')}}" id="tinggi" name="tinggi" type="text" class="form-control" aria-describedby="cm">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="cm">cm</span>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="berat" class="col-4 col-form-label">Berat badan</label>
-                        <div class="col-md-3 input-group">
+                        <div class="col-md-3 col-8 input-group">
                             <input value="{{old('berat')}}" id="berat" name="berat" type="text" class="form-control" aria-describedby="kg">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="kg">kg</span>
