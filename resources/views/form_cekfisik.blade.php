@@ -41,7 +41,7 @@
                     </ul>
                 </div><br />
                 @endif
-                <div class="card-header bg-info">
+                <div class="card-header bg-info text-center">
                     <h5 class="text-white mb-0">DATA CALON SISWA</h5>
                 </div>
                 <div class="card-body">
@@ -129,6 +129,25 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="obat" class="col-4 col-form-label">Ketergantungan obat</label>
+                        <div class="col-8">
+                            <select name="obat" id="obat" class="form-control">
+                                <option value="0" {{ old('obat') == "0" ? 'selected' : '' }} >Tidak</option>
+                                <option value="1" {{ old('obat') == "1" ? 'selected' : '' }} >Ya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tato" class="col-4 col-form-label">Tato / Tindik</label>
+                        <div class="col-8">
+                            <select name="tato" id="tato" class="form-control">
+                                <option value="N" {{ old('tato') == "N" ? 'selected' : '' }} >Tidak ada tato/tindik</option>
+                                <option value="TA" {{ old('tato') == "KNK" ? 'selected' : '' }} >Ada tato</option>
+                                <option value="TI" {{ old('tato') == "KRK" ? 'selected' : '' }} >Ada tindik</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="disabilitas" class="col-4 col-form-label">Disabilitas</label>
                         <div class="col-8">
                             <select name="disabilitas" id="disabilitas" class="form-control">
@@ -155,16 +174,10 @@
                         <label for="alquran" class="col-4 col-form-label">Al QUran</label>
                         <div class="col-8">
                             <select name="alquran" id="alquran" class="form-control">
-                                <option value="B" {{ old('ibadah') == "B" ? 'selected' : '' }} >Baik</option>
-                                <option value="C" {{ old('ibadah') == "C" ? 'selected' : '' }} >Cukup</option>
-                                <option value="K" {{ old('ibadah') == "K" ? 'selected' : '' }} >Kurang</option>
+                                <option value="S" {{ old('alquran') == "B" ? 'selected' : '' }} >Sesuai tajwid</option>
+                                <option value="B" {{ old('alquran') == "C" ? 'selected' : '' }} >Baik, lancar</option>
+                                <option value="T" {{ old('alquran') == "K" ? 'selected' : '' }} >Terbata-bata</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="prestasi" class="col-4 col-form-label">Prestasi</label>
-                        <div class="col-8">
-                            <textarea name="prestasi" id="prestasi" rows="10">1.</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -178,6 +191,23 @@
                                 <option value="XL" {{ old('ukuran_baju') == "XL" ? 'selected' : '' }} >XL</option>
                                 <option value="XXL" {{ old('ukuran_baju') == "XXL" ? 'selected' : '' }} >XXL</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 bg-info text-center">
+                            <h5 class="text-white mb-1 mt-1">PRESTASI</h5>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-1">
+                        <label for="akademik" class="col-4 col-form-label">Akademik</label>
+                        <div class="col-8">
+                            <textarea name="akademik" id="akademik" rows="3" class="form-control">1.</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="non_akademik" class="col-4 col-form-label">Non akademik</label>
+                        <div class="col-8">
+                            <textarea name="non_akademik" id="non_akademik" rows="3" class="form-control">1.</textarea>
                         </div>
                     </div>
                     
