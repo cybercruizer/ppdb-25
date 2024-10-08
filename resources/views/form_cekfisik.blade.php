@@ -129,6 +129,19 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="disabilitas" class="col-4 col-form-label">Disabilitas</label>
+                        <div class="col-8">
+                            <select name="disabilitas" id="disabilitas" class="form-control">
+                                <option value="N" {{ old('disabilitas') == "N" ? 'selected' : '' }} >Tidak</option>
+                                <option value="TW" {{ old('disabilitas') == "TW" ? 'selected' : '' }} >Tuna Wicara</option>
+                                <option value="TR" {{ old('disabilitas') == "TR" ? 'selected' : '' }} >Tuna Rungu</option>
+                                <option value="TN" {{ old('disabilitas') == "TN" ? 'selected' : '' }} >Tuna Netra</option>
+                                <option value="TD" {{ old('disabilitas') == "TD" ? 'selected' : '' }} >Tuna Daksa</option>
+                                <option value="TG" {{ old('disabilitas') == "TG" ? 'selected' : '' }} >Tuna Grahita</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="ibadah" class="col-4 col-form-label">Ibadah</label>
                         <div class="col-8">
                             <select name="ibadah" id="ibadah" class="form-control">
@@ -136,6 +149,22 @@
                                 <option value="C" {{ old('ibadah') == "C" ? 'selected' : '' }} >Cukup</option>
                                 <option value="K" {{ old('ibadah') == "K" ? 'selected' : '' }} >Kurang</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="alquran" class="col-4 col-form-label">Al QUran</label>
+                        <div class="col-8">
+                            <select name="alquran" id="alquran" class="form-control">
+                                <option value="B" {{ old('ibadah') == "B" ? 'selected' : '' }} >Baik</option>
+                                <option value="C" {{ old('ibadah') == "C" ? 'selected' : '' }} >Cukup</option>
+                                <option value="K" {{ old('ibadah') == "K" ? 'selected' : '' }} >Kurang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="prestasi" class="col-4 col-form-label">Prestasi</label>
+                        <div class="col-8">
+                            <textarea name="prestasi" id="prestasi" rows="10">1.</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
