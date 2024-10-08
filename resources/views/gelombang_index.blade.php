@@ -46,7 +46,7 @@
                     <td>{{ $gel->nama }}</td>
                     <td>{{ $gel->tanggal_awal }}</td>
                     <td>{{ $gel->tanggal_akhir }}</td>
-                    <td>{{ $gel->aktif }}</td>
+                    <td>{{ $gel->is_active }}</td>
                     <td>
                         <a class="btn btn-primary btn-sm" role="button" href="/admin/gelombang/edit/{{$gel->id}}"><i class="fas fa-pencil-alt"></i></a>
                         <a href="/admin/gelombang/hapus/{{ $gel->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus {{$gel->nama}} ?')"><i class="far fa-trash-alt"></i></a>

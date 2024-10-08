@@ -33,6 +33,9 @@ use App\Http\Controllers\Admin\AdminPembayaranController;
 Route::get('/', function () {
     return view('form');
 });
+Route::get('tesfisik', [FormController::class, 'tesfisik'])->name('tesfisik');
+Route::post('tesfisik', [FormController::class, 'tesfisik_store'])->name('tesfisik.store');
+Route::get('getSiswaById/{id}', [FormController::class, 'getSiswaById'])->name('getSiswaById');
 //Route::get('/sjn72xyz', [sjn72Controller::class, 'sjn72xyz']);
 //Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
 Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate']);

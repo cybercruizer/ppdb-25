@@ -90,4 +90,17 @@ class FormController extends Controller
         alert()->success('Sukses!','Data berhasil diinput');
         return redirect()->back();
     }
+    public function tesfisik()
+    {
+        $data= [];
+        $data ['siswa'] = Siswa::select('id','nama')->get();
+        $data ['title'] = 'Form Cek Fisik';
+        //dd($data);
+        return view('form_cekfisik', compact('data'));
+    }
+    public function getSiswaById($id)
+    {
+        $siswa = Siswa::find($id);
+        return response()->json($siswa);
+    }
 }

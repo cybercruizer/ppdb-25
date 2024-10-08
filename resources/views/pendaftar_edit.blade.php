@@ -364,10 +364,10 @@
                                     <td>Tagihan Daftar Ulang</td>
                                     <td>
                                         <select class="border rounded shadow-sm form-control-lg" name="tagihan_du">
-                                            <option value="1000000" {{ $siswa->tagihan->nominal == 1000000 ? 'selected' : '' }}>1.000.000 (Gel-1)</option>
-                                            <option value="1300000" {{ $siswa->tagihan->nominal == 1300000 ? 'selected' : '' }}>1.300.000 (Pondok)</option>
-                                            <option value="1500000" {{ $siswa->tagihan->nominal == 1500000 ? 'selected' : '' }}>1.500.000 (Gel-2)</option>
-                                            <option value="2000000" {{ $siswa->tagihan->nominal == 2000000 ? 'selected' : '' }}>2.000.000 (Gel-3)</option>
+                                            <option value="1000000" {{ $siswa->tagihan->nominal == 1250000 ? 'selected' : '' }}>1.250.000 (Gel-1-Putra)</option>
+                                            <option value="1300000" {{ $siswa->tagihan->nominal == 1350000 ? 'selected' : '' }}>1.350.000 (Gel1-Putri)</option>
+                                            <option value="1500000" {{ $siswa->tagihan->nominal == 1550000 ? 'selected' : '' }}>1.550.000 (Gel-2-Putra)</option>
+                                            <option value="2000000" {{ $siswa->tagihan->nominal == 1650000 ? 'selected' : '' }}>1.650.000 (Gel-2-Putri)</option>
                                         </select>
                                     </td>
                                 </tr>
