@@ -51,7 +51,7 @@
             <div class="card-header bg-info text-center">
                 <h5 class="text-white mb-0">INPUT TES FISIK</h5>
             </div>
-            <div class="row form-group m-2">
+            <div class="row form-group m-2" id="pinInputDiv">
                 <div class="col-3">
                     <input type="password" id="pinInput" placeholder="Masukkan PIN" class="form-control">
                 </div>
@@ -335,6 +335,7 @@
 
                 if (enteredPin === correctPin) {
                     $('#hiddenDiv').show();
+                    $('#pinInputDiv').hide();
                 } else {
                     alert('PIN salah, coba lagi');
                 }
