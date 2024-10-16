@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Ortu;
+use App\Models\Fisik;
 use App\Models\Bendahara\Payment;
 use App\Models\Bendahara\Tagihan;
 use Illuminate\Database\Eloquent\Model;
@@ -88,5 +89,14 @@ class Siswa extends Model
     public function tahun(): BelongsTo
     {
         return $this->belongsTo(Tahun::class,'tahun_id');
+    }
+    /**
+     * Get the fisik associated with the Siswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function fisik(): HasOne
+    {
+        return $this->hasOne(Fisik::class,'siswa_id');
     }
 }

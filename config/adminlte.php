@@ -322,6 +322,11 @@ return [
             'url'         => 'admin/gelombang',
             'icon'        => 'far fa-fw fa-star',
         ],
+        [
+            'text'        => 'Hasil Tes Fisik',
+            'url'         => 'admin/tesfisik',
+            'icon'        => 'far fa-fw fa-star',
+        ],
 
         //Khusus Bendahara
 

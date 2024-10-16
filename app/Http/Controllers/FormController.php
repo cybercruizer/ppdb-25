@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Guru;
 use App\Models\Ortu;
+use App\Models\Fisik;
 use App\Models\Siswa;
 use App\Models\Gelombang;
 use Illuminate\Http\Request;
@@ -15,23 +17,20 @@ class FormController extends Controller
 {
     public function store(Request $request)
     {
-        $validator=Validator::make($request->all(),
-        [
+        $request->validate([
+            'jurusan' =>'required',
+            'no_pendaf' => 'required',
             'nama' => 'required',
             'no_telp' => 'required',
             'nama_ayah' => 'required',
             'alamat' => 'required',
+            'tempat_lahir' => 'required',
+            'asal_sekolah' => 'required',
             'tgl_lahir'=> 'required',
             'captcha' => 'required|captcha',
             'jenis_kelamin' => 'required',
         ]);
-        if ($validator->fails())
-        {
-            //$errors=$validator->errors()->getMessages();
-            //dd($errors);
-            alert()->error('Error','Ada kesalahan dalam input');
-            return back()->withInput();
-        }
+
         $tanggal_daftar = Carbon::now();
         $gelombang= Gelombang::whereDate('tanggal_awal','<=',$tanggal_daftar)->whereDate('tanggal_akhir','>=',$tanggal_daftar)->select('id','daftar_ulang')->first();
         //dd($gelombang->daftar_ulang);
@@ -93,14 +92,85 @@ class FormController extends Controller
     public function tesfisik()
     {
         $data= [];
-        $data ['siswa'] = Siswa::select('id','nama')->get();
+        $data['pin']=1972;
+        //$data['tampil']=false;
+        //if($request->pin == 1972)
+        //{
+        //    $data['tampil'] = true;
+        //}
+        //$data ['siswa'] = Siswa::select('id','nama')->get();
         $data ['title'] = 'Form Cek Fisik';
+        $data ['penguji'] = Guru::select('id','nama')->get();
+        
         //dd($data);
-        return view('form_cekfisik', compact('data'));
+        return view('form_cekfisik',compact('data'));
+    }
+    public function tesfisik_store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'siswa_id'=>'required',
+            'tinggi'=>'required',
+            'berat'=>'required',
+            'mata'=>'required',
+            'telinga'=>'required',
+            'obat'=>'required',
+            'penyakit'=>'nullable',
+            'tato'=>'required',
+            'disabilitas'=>'required',
+            'ibadah'=>'required',
+            'alquran'=>'required',
+            'ukuran_baju'=>'required',
+            'akademik'=>'nullable',
+            'non_akademik'=>'nullable',
+            'penguji' =>'required',
+        ]);
+        
+        if($validator->fails()){
+            //dd($data);
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $fisik = new Fisik;
+        $fisik -> siswa_id = $request->siswa_id;
+        $fisik -> tinggi = $request->tinggi;
+        $fisik -> berat = $request->berat;
+        $fisik -> mata = $request->mata;
+        $fisik -> telinga = $request->telinga;
+        $fisik -> obat = $request->obat;
+        $fisik -> penyakit = $request->penyakit;
+        $fisik -> tato = $request->tato;
+        $fisik -> disabilitas = $request->disabilitas;
+        $fisik -> ibadah = $request->ibadah;
+        $fisik -> alquran = $request->alquran;
+        $fisik -> ukuran_baju = $request->ukuran_baju;
+        $fisik -> akademik = $request->akademik;
+        $fisik -> non_akademik = $request->non_akademik;
+        $fisik -> guru_id = $request->penguji;
+        $fisik -> save();
+        alert()->success('Sukses!','Data berhasil diinput');
+        return redirect()->back();
     }
     public function getSiswaById($id)
     {
         $siswa = Siswa::find($id);
         return response()->json($siswa);
+    }
+    public function pendaftarAjax(Request $request) {
+        //dd($request->q);
+        $search = $request->cari;
+
+        if($search == ''){
+           $siswas = Siswa::orderby('nama','asc')->select('id','nama')->limit(10)->get();
+        }else{
+           $siswas = Siswa::orderby('nama','asc')->select('id','nama')->where('nama', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+
+        $response = array();
+        foreach($siswas as $siswa){
+           $response[] = array(
+                "id"=>$siswa->id,
+                "text"=>$siswa->nama
+           );
+        }
+        return response()->json($response);
     }
 }

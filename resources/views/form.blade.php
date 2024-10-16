@@ -28,15 +28,6 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div><br />
-                @endif
                 <div class="card-header bg-info">
                     <h5 class="text-white mb-0">DATA CALON SISWA</h5>
                 </div>
@@ -99,8 +90,9 @@
                         <label for="jenis_kelamin" class="col-4 col-form-label">Jenis Kelamin</label>
                         <div class="col-3">
                             <select class="custom-select" name="jenis_kelamin">
-                                <option value="L" selected="">Laki- Laki</option>
-                                <option value="P">Perempuan</option>
+                                <option value="" selected>-Pilih Jenis Kelamin-</option>
+                                <option value="L" {{old('jenis_kelamin') == 'L' ? 'selected' : ''}}>Laki- Laki</option>
+                                <option value="P" {{old('jenis_kelamin') == 'P' ? 'selected' : ''}}>Perempuan</option>
                             </select>
                         </div>
                     </div>

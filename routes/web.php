@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\TahunController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\TesfisikController;
 use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\Admin\GelombangController;
 use App\Http\Controllers\Admin\PendaftarController;
@@ -33,8 +34,8 @@ use App\Http\Controllers\Admin\AdminPembayaranController;
 Route::get('/', function () {
     return view('form');
 });
-Route::get('tesfisik', [FormController::class, 'tesfisik'])->name('tesfisik');
-Route::post('tesfisik', [FormController::class, 'tesfisik_store'])->name('tesfisik.store');
+Route::any('tesfisik', [FormController::class, 'tesfisik'])->name('tesfisik');
+Route::post('tesfisik/store', [FormController::class, 'tesfisik_store'])->name('tesfisik.store');
 Route::get('getSiswaById/{id}', [FormController::class, 'getSiswaById'])->name('getSiswaById');
 //Route::get('/sjn72xyz', [sjn72Controller::class, 'sjn72xyz']);
 //Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
@@ -47,6 +48,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/pendaftar/store', [FormController::class,'store'])->name('form.store');
+Route::get('/pendaftar/pendaftarAjax', [FormController::class,'pendaftarAjax'])->name('pendaftar.ajax');
 Route::prefix('admin')->group(function() {
     Route::get('/',[HomeController::class, 'index'])->name('home');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -78,6 +80,9 @@ Route::prefix('admin')->group(function() {
 
     Route::get('history', [AdminPembayaranController::class,'history'])->name('admin.history');
     Route::get('laporan', [AdminPembayaranController::class,'laporan'])->name('admin.history.laporan');
+    Route::get('tesfisik',[TesfisikController::class,'index'])->name('admin.tesfisik');
+    Route::get('tesfisik/{id}',[TesfisikController::class,'show'])->name('admin.tesfisik.show');
+    Route::get('tesfisik/hapus/{id}', [TesfisikController::class,'destroy'])->name('admin.tesfisik.destroy');
 });
 Route::group(['middleware' => 'bendahara.access'], function () {
     Route::get('/pembayaran', [PembayaranController::class,'index'])->name('pembayaran.index');
