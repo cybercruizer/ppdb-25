@@ -50,11 +50,11 @@
             @foreach($historiPembayaran as $pembayaran=>$p)
             <tr>
                 <td>{{ $historiPembayaran->firstItem() + $pembayaran }}</td>
-                <td>{{ strtoupper($p->siswa->nama) }}</td>
-                <td>{{ $p->tagihan->nama_tagihan ?? 'kosong'}}</td>
+                <td>{{ strtoupper($p->siswa->nama ?? '-') }}</td>
+                <td>{{ $p->tagihan->nama_tagihan ?? '-'}}</td>
                 <td><p class="rupiah">{{ $p->nominal }}</p></td>
                 <td>{{\Carbon\Carbon::parse($p->created_at)->format('d/m/Y')}}</td>
-                <td><a href="hapus/{{ $p->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data pembayaran untuk nama {{$p->siswa->nama}} ?')"><i class="fas fa-trash-alt"></i></a></td>
+                <td><a href="hapus/{{ $p->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data pembayaran untuk nama {{$p->siswa->nama ?? '-' }} ?')"><i class="fas fa-trash-alt"></i></a></td>
 
             </tr>
             @endforeach

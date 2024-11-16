@@ -23,32 +23,34 @@ class PendaftarController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->perhalaman=30; //Data yang ditampilkan per halaman
+        $this->perhalaman = 30; //Data yang ditampilkan per halaman
     }
 
     public function index()
     {
-        $siswa = Siswa::orderBy('id','DESC')->paginate($this->perhalaman);
+        $siswa = Siswa::orderBy('id', 'DESC')->paginate($this->perhalaman);
         $title = 'Data Pendaftar';
-        return view('pendaftar',['siswa'=>$siswa,'title'=>$title]);
+        confirmDelete('Hapus Pendaftar', 'Apakah anda yakin akan menghapus data ini?');
+        return view('pendaftar', ['siswa' => $siswa, 'title' => $title]);
     }
     public function pondok()
     {
-        $siswa= Siswa::where('no_pendaf', 'LIKE', '%'.'PDK'.'%')->orderBy('id','DESC')->paginate($this->perhalaman);
-        return view("ap_index",['siswa'=>$siswa,'title'=>'Pendaftar Pondok']);
-
+        $siswa = Siswa::where('no_pendaf', 'LIKE', '%' . 'PDK' . '%')
+            ->orderBy('id', 'DESC')
+            ->paginate($this->perhalaman);
+        return view('ap_index', ['siswa' => $siswa, 'title' => 'Pendaftar Pondok']);
     }
 
     public function perjurusan($jurusan)
     {
-        $siswa = Siswa::where('jurusan',$jurusan)->paginate($this->perhalaman);
-        if($jurusan=='PHT') {
-            $jurusan='PERHOTELAN';
-        } else if ($jurusan=='KUL') {
+        $siswa = Siswa::where('jurusan', $jurusan)->paginate($this->perhalaman);
+        if ($jurusan == 'PHT') {
+            $jurusan = 'PERHOTELAN';
+        } elseif ($jurusan == 'KUL') {
             $jurusan = 'KULINER';
         }
-        $title = 'Data Pendaftar '.strtoupper($jurusan);
-        return view('pendaftar',['siswa'=>$siswa,'title'=>$title]);
+        $title = 'Data Pendaftar ' . strtoupper($jurusan);
+        return view('pendaftar', ['siswa' => $siswa, 'title' => $title]);
     }
 
     /**
@@ -69,7 +71,6 @@ class PendaftarController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -91,10 +92,10 @@ class PendaftarController extends Controller
      */
     public function edit($id)
     {
-        $siswa= Siswa::find($id);
-        $ortu= $siswa ->ortu;
-        $guru= Guru::select('id','nama')->get()->pluck('nama','id');
-        return view('pendaftar_edit',['siswa'=>$siswa,'ortu'=>$ortu,'guru'=> $guru]);
+        $siswa = Siswa::find($id);
+        $ortu = $siswa->ortu;
+        $guru = Guru::select('id', 'nama')->get()->pluck('nama', 'id');
+        return view('pendaftar_edit', ['siswa' => $siswa, 'ortu' => $ortu, 'guru' => $guru]);
     }
 
     /**
@@ -107,34 +108,34 @@ class PendaftarController extends Controller
     public function update(Request $request, $id)
     {
         $siswa = Siswa::findOrfail($id);
-        $siswa -> nama = $request->input('nama');
-        $siswa -> no_pendaf = $request->input('no_pendaf');
-        $siswa -> jurusan = $request->input('jurusan');
+        $siswa->nama = $request->input('nama');
+        $siswa->no_pendaf = $request->input('no_pendaf');
+        $siswa->jurusan = $request->input('jurusan');
         //$siswa -> alasan = $request->input('alasan');
         //$siswa -> nisn = $request->input('nisn');
-        $siswa -> tempat_lahir = $request->input('tempat_lahir');
-        $siswa -> tgl_lahir = $request->input('tgl_lahir');
-        $siswa -> jenis_kelamin = $request->input('jenis_kelamin');
+        $siswa->tempat_lahir = $request->input('tempat_lahir');
+        $siswa->tgl_lahir = $request->input('tgl_lahir');
+        $siswa->jenis_kelamin = $request->input('jenis_kelamin');
         //$siswa -> agama = $request->input('agama');
         //$siswa -> anak_ke = $request->input('anak_ke');
         //$siswa -> dari = $request->input('dari');
-        $siswa -> alamat = $request->input('alamat');
-        $siswa -> asal_sekolah = $request->input('asal_sekolah');
+        $siswa->alamat = $request->input('alamat');
+        $siswa->asal_sekolah = $request->input('asal_sekolah');
         //$siswa -> alamat_sekolah = $request->input('alamat_sekolah');
-        $siswa -> no_telp = $request->input('no_telp');
+        $siswa->no_telp = $request->input('no_telp');
         //$siswa -> hobi = $request->input('hobi');
         //$siswa -> jarak = $request->input('jarak');
         //$siswa -> transport = $request->input('transportasi');
         //$siswa -> informasi = $request->input('info');
         $siswa->rekomendator = $request->input('rekomendator');
-        $siswa -> kategori = $request->input('kategori');
-        $siswa-> guru_id = $request->input('guru_id');
-        $siswa -> pondok = $request->input('pondok');
-        $siswa -> save();
+        $siswa->kategori = $request->input('kategori');
+        $siswa->guru_id = $request->input('guru_id');
+        $siswa->pondok = $request->input('pondok');
+        $siswa->save();
 
-        $ortu= $siswa->ortu;
-        $ortu -> nama_ayah = $request->input('nama_ayah');
-        $ortu -> nama_ibu = $request->input('nama_ibu');
+        $ortu = $siswa->ortu;
+        $ortu->nama_ayah = $request->input('nama_ayah');
+        $ortu->nama_ibu = $request->input('nama_ibu');
         //$ortu -> telp = $request->input('telp_ortu');
         //$ortu -> alamat_ortu = $request->input('alamat_ortu');
         //$ortu -> kerjaayah_id = $request->input('kerja_ayah');
@@ -144,24 +145,22 @@ class PendaftarController extends Controller
         //$ortu -> nama_wali = $request->input('nama_wali');
         //$ortu -> alamat_wali = $request->input('alamat_wali');
         //$ortu -> telp_wali = $request->input('telp_wali');
-        $ortu -> save();
+        $ortu->save();
 
         $tagihan = $siswa->tagihan;
-        if ($request->input('kategori') == 'AP50'|| $request->input('kategori') == 'AP100') {
+        if ($request->input('kategori') == 'AP50' || $request->input('kategori') == 'AP100') {
             $nominal_bayar = 1000000;
         } elseif ($request->input('pondok') == 1) {
             $nominal_bayar = 1300000;
-        } elseif ($request->input('kategori')=='KB') {
+        } elseif ($request->input('kategori') == 'KB') {
             $nominal_bayar = 1000000;
-        }
-        else {
+        } else {
             $nominal_bayar = $request->input('tagihan_du');
         }
-        $tagihan -> siswa_id = $siswa->id;
-        $tagihan -> nama_tagihan = "ppdb";
-        $tagihan -> nominal = $nominal_bayar;
-        $tagihan -> save();
-        alert()->success('Sukses!','Data berhasil diubah');
+        $tagihan->siswa_id = $siswa->id;
+        $tagihan->nama_tagihan = 'ppdb';
+        $tagihan->nominal = $nominal_bayar;
+        $tagihan->save();
         return redirect()->back();
     }
 
@@ -173,32 +172,30 @@ class PendaftarController extends Controller
      */
     public function destroy($id)
     {
-
-        $siswa=Siswa::with('tagihan')->findOrFail($id);
-        $siswa->tagihan()->delete();
-        //foreach ($siswa->tagihan() as $tgh) {
-        //        $tgh->delete();
-        //};
-        $siswa->ortu->delete();
-        $siswa->delete();
-        alert()->success('Sukses!','Data berhasil dihapus');
-        return redirect()->back();
+        try {
+            $pendaftar = Siswa::findOrFail($id);
+            $pendaftar->delete();
+            $pendaftar->tagihan()->delete();
+            $pendaftar->ortu->delete();
+            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghapus data'], 500);
+        }
     }
     public function cari(Request $request)
-	{
+    {
         // menangkap data pencarian
-		$cari = $request->cari;
+        $cari = $request->cari;
         $title = 'Hasil Pendarian';
 
-    		// mengambil data dari table pegawai sesuai pencarian data
-		$siswa = Siswa::where('nama','like',"%".$cari."%")->paginate($this->perhalaman);
+        // mengambil data dari table pegawai sesuai pencarian data
+        $siswa = Siswa::where('nama', 'like', '%' . $cari . '%')->paginate($this->perhalaman);
 
-    		// mengirim data pegawai ke view index
-		return view('pendaftar',['siswa' => $siswa,'title'=>$title]);
-
-	}
-    public function exportExcel ()
+        // mengirim data pegawai ke view index
+        return view('pendaftar', ['siswa' => $siswa, 'title' => $title]);
+    }
+    public function exportExcel()
     {
-        return Excel::download(new SiswaExport, 'Data Pendaftar.xlsx');
+        return Excel::download(new SiswaExport(), 'Data Pendaftar.xlsx');
     }
 }

@@ -7,12 +7,14 @@ use App\Models\Fisik;
 use App\Models\Bendahara\Payment;
 use App\Models\Bendahara\Tagihan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Siswa extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'no_pendaf',
         'nama',

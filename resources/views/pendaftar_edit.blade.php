@@ -364,10 +364,16 @@
                                     <td>Tagihan Daftar Ulang</td>
                                     <td>
                                         <select class="border rounded shadow-sm form-control-lg" name="tagihan_du">
-                                            <option value="1000000" {{ $siswa->tagihan->nominal == 1250000 ? 'selected' : '' }}>1.250.000 (Gel-1-Putra)</option>
-                                            <option value="1300000" {{ $siswa->tagihan->nominal == 1350000 ? 'selected' : '' }}>1.350.000 (Gel1-Putri)</option>
-                                            <option value="1500000" {{ $siswa->tagihan->nominal == 1550000 ? 'selected' : '' }}>1.550.000 (Gel-2-Putra)</option>
-                                            <option value="2000000" {{ $siswa->tagihan->nominal == 1650000 ? 'selected' : '' }}>1.650.000 (Gel-2-Putri)</option>
+                                            <option value="1250000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 1250000 ? 'selected' : '' }}>1.250.000 (Indent-Putra)</option>
+                                            <option value="1350000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 1350000 ? 'selected' : '' }}>1.350.000 (Indent-Putri)</option>
+                                            <option value="1500000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 1500000 ? 'selected' : '' }}>1.500.000 (Gel-1-Putra)</option>
+                                            <option value="1600000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 1600000 ? 'selected' : '' }}>1.600.000 (Gel-1-Putri)</option>
+                                            <option value="2000000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 2000000 ? 'selected' : '' }}>2.000.000 (Gel-2-Putra)</option>
+                                            <option value="2100000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 2100000 ? 'selected' : '' }}>2.100.000 (Gel-2-Putri)</option>
+                                            <option value="2500000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 2500000 ? 'selected' : '' }}>2.500.000 (Gel-3-Putra)</option>
+                                            <option value="2600000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 2600000 ? 'selected' : '' }}>2.600.000 (Gel-3-Putri)</option>
+                                            <option value="3000000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 3000000 ? 'selected' : '' }}>3.000.000 (Gel-Khusus-Putra)</option>
+                                            <option value="3100000" {{ old('tagihan_du', $siswa->tagihan->nominal) == 3100000 ? 'selected' : '' }}>3.100.000 (Gel-Khusus-Putri)</option>
                                         </select>
                                     </td>
                                 </tr>

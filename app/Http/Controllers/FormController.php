@@ -108,7 +108,7 @@ class FormController extends Controller
     public function tesfisik_store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'siswa_id'=>'required',
+            'siswa_id'=>'required|unique:fisik,siswa_id',
             'tinggi'=>'required',
             'berat'=>'required',
             'mata'=>'required',
@@ -129,6 +129,8 @@ class FormController extends Controller
             //dd($data);
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $nama= Siswa::find($request->siswa_id)->nama;
+
         $fisik = new Fisik;
         $fisik -> siswa_id = $request->siswa_id;
         $fisik -> tinggi = $request->tinggi;
@@ -146,8 +148,7 @@ class FormController extends Controller
         $fisik -> non_akademik = $request->non_akademik;
         $fisik -> guru_id = $request->penguji;
         $fisik -> save();
-        alert()->success('Sukses!','Data berhasil diinput');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data tes fisik '.$nama .' berhasil diinput');;
     }
     public function getSiswaById($id)
     {

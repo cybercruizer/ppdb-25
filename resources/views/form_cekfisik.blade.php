@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/select2/select2-bootstrap4.css') }}">
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
     <style>
         #hiddenDiv {
             display: none;
@@ -22,8 +23,21 @@
 </head>
 
 <body>
-    @include('sweetalert::alert')
-
+    @if(session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true
+                });
+            });
+        </script>
+    @endif
     <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-info navigation-clean-search"
         style="padding: 5px;background: rgb(25,111,190);">
         <div class="container-fluid"><a class="navbar-brand" style="color:#eeeeee;"
@@ -32,7 +46,7 @@
                     navigation</span><span class="navbar-toggler-icon"></span></button></div>
     </nav>
 
-    <div class="container" id="protected-content">
+    <div class="container mb-4" id="protected-content">
         <div class="card" style="margin-top: 20px;">
             @if (session('status'))
                 <div class="alert alert-success">
@@ -52,10 +66,10 @@
                 <h5 class="text-white mb-0">INPUT TES FISIK</h5>
             </div>
             <div class="row form-group m-2" id="pinInputDiv">
-                <div class="col-3">
+                <div class="col-md-3 col-8">
                     <input type="password" id="pinInput" placeholder="Masukkan PIN" class="form-control">
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-4">
                     <button id="submitBtn" class="btn btn-primary">Kirim</button>
                 </div>
             </div>
@@ -65,7 +79,7 @@
                     <div class="form-group row">
                         <label for="nama" class="col-4 col-form-label">Nama Calon Siswa</label>
                         <div class="col-8">
-                            <select id="nama" name="nama" class="form-control">
+                            <select id="nama" name="nama" class="form-control" required>
                                 
                             </select>
                         </div>
@@ -109,7 +123,7 @@
                         <label for="tinggi" class="col-4 col-form-label">Tinggi badan</label>
                         <div class="col-md-3 col-8 input-group">
                             <input value="{{ old('tinggi') }}" id="tinggi" name="tinggi" type="number"
-                                step="0.1" class="form-control" aria-describedby="cm">
+                                step="0.1" class="form-control" aria-describedby="cm" required>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="cm">cm</span>
                             </div>
@@ -119,7 +133,7 @@
                         <label for="berat" class="col-4 col-form-label">Berat badan</label>
                         <div class="col-md-3 col-8 input-group">
                             <input value="{{ old('berat') }}" id="berat" name="berat" type="number"
-                                step="0.1" class="form-control" aria-describedby="kg">
+                                step="0.1" class="form-control" aria-describedby="kg" required>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="kg">kg</span>
                             </div>
@@ -128,7 +142,7 @@
                     <div class="form-group row">
                         <label for="mata" class="col-4 col-form-label">Mata</label>
                         <div class="col-8">
-                            <select name="mata" id="mata" class="form-control">
+                            <select name="mata" id="mata" class="form-control" required>
                                 <option value="N" {{ old('mata') == 'N' ? 'selected' : '' }}>Normal</option>
                                 <option value="BW" {{ old('mata') == 'BW' ? 'selected' : '' }}>Buta Warna
                                 </option>
@@ -144,7 +158,7 @@
                     <div class="form-group row">
                         <label for="telinga" class="col-4 col-form-label">Telinga</label>
                         <div class="col-8">
-                            <select name="telinga" id="telinga" class="form-control">
+                            <select name="telinga" id="telinga" class="form-control" required>
                                 <option value="N" {{ old('telinga') == 'N' ? 'selected' : '' }}>Normal</option>
                                 <option value="KNK" {{ old('telinga') == 'KNK' ? 'selected' : '' }}>Kanan Kurang
                                 </option>
@@ -162,7 +176,7 @@
                     <div class="form-group row">
                         <label for="obat" class="col-4 col-form-label">Ketergantungan obat</label>
                         <div class="col-8">
-                            <select name="obat" id="obat" class="form-control">
+                            <select name="obat" id="obat" class="form-control" required>
                                 <option value="0" {{ old('obat') == '0' ? 'selected' : '' }}>Tidak</option>
                                 <option value="1" {{ old('obat') == '1' ? 'selected' : '' }}>Ya</option>
                             </select>
@@ -171,7 +185,7 @@
                     <div class="form-group row">
                         <label for="tato" class="col-4 col-form-label">Tato / Tindik</label>
                         <div class="col-8">
-                            <select name="tato" id="tato" class="form-control">
+                            <select name="tato" id="tato" class="form-control" required>
                                 <option value="N" {{ old('tato') == 'N' ? 'selected' : '' }}>Tidak ada
                                     tato/tindik</option>
                                 <option value="TA" {{ old('tato') == 'TA' ? 'selected' : '' }}>Ada tato
@@ -184,7 +198,7 @@
                     <div class="form-group row">
                         <label for="disabilitas" class="col-4 col-form-label">Disabilitas</label>
                         <div class="col-8">
-                            <select name="disabilitas" id="disabilitas" class="form-control">
+                            <select name="disabilitas" id="disabilitas" class="form-control" required>
                                 <option value="N" {{ old('disabilitas') == 'N' ? 'selected' : '' }}>Tidak
                                 </option>
                                 <option value="TW" {{ old('disabilitas') == 'TW' ? 'selected' : '' }}>Tuna
@@ -203,7 +217,7 @@
                     <div class="form-group row">
                         <label for="ibadah" class="col-4 col-form-label">Ibadah</label>
                         <div class="col-8">
-                            <select name="ibadah" id="ibadah" class="form-control">
+                            <select name="ibadah" id="ibadah" class="form-control" required>
                                 <option value="B" {{ old('ibadah') == 'B' ? 'selected' : '' }}>Baik</option>
                                 <option value="C" {{ old('ibadah') == 'C' ? 'selected' : '' }}>Cukup</option>
                                 <option value="K" {{ old('ibadah') == 'K' ? 'selected' : '' }}>Kurang
@@ -214,7 +228,7 @@
                     <div class="form-group row">
                         <label for="alquran" class="col-4 col-form-label">Al Quran</label>
                         <div class="col-8">
-                            <select name="alquran" id="alquran" class="form-control">
+                            <select name="alquran" id="alquran" class="form-control" required>
                                 <option value="S" {{ old('alquran') == 'S' ? 'selected' : '' }}>Sesuai tajwid
                                 </option>
                                 <option value="B" {{ old('alquran') == 'B' ? 'selected' : '' }}>Baik, lancar
@@ -227,7 +241,7 @@
                     <div class="form-group row">
                         <label for="ukuran_baju" class="col-4 col-form-label">Ukuran Baju</label>
                         <div class="col-8">
-                            <select name="ukuran_baju" id="ukuran_baju" class="form-control">
+                            <select name="ukuran_baju" id="ukuran_baju" class="form-control" required>
                                 <option value="">--Pilih ukuran baju--</option>
                                 <option value="S" {{ old('ukuran_baju') == 'S' ? 'selected' : '' }}>S
                                 </option>
@@ -262,10 +276,10 @@
                     <div class="form-group row">
                         <label for="penguji" class="col-4 col-form-label">Petugas</label>
                         <div class="col-8">
-                            <select name="penguji" id="penguji" class="form-control" searchable>
-                                <option value="" selected>--Pilih Nama Penguji--</option>
+                            <select name="penguji" id="penguji" class="form-control" required>
+                                <option value="" >--Pilih petugas--</option>
                                 @foreach ($data['penguji'] as $peng)
-                                    <option value="{{ $peng->id }}">{{ $peng->nama }}</option>
+                                    <option value="{{ $peng->id }}" {{ old('penguji') == $peng->id ? 'selected' : '' }}>{{ $peng->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -289,8 +303,6 @@
                 </div>
             </form>
         </div>
-    </div>
-
     </div>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -337,7 +349,16 @@
                     $('#hiddenDiv').show();
                     $('#pinInputDiv').hide();
                 } else {
-                    alert('PIN salah, coba lagi');
+                    //alert('PIN salah, coba lagi');
+                    Swal.fire({
+                        toast: false,
+                        position: 'center',
+                        icon: 'error',
+                        title: 'PIN salah',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        timerProgressBar: true
+                    });
                 }
             });
         });

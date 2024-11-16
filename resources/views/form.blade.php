@@ -156,10 +156,7 @@
                 const selectedOption = jurusanSelect.value;
                 nomorPendaftaranInput.value = selectedOption + "-";
             });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    
             const showFormCheckbox = document.getElementById("showForm");
             const formInputsContainer = document.getElementById("formInputs");
 

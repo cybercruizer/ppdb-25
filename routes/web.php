@@ -53,13 +53,16 @@ Route::prefix('admin')->group(function() {
     Route::get('/',[HomeController::class, 'index'])->name('home');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::get('pendaftar', [PendaftarController::class,'index'])->name('pendaftar');
     Route::get('pendaftar/cari',[PendaftarController::class,'cari'])->name('caripendaftar');
-    Route::get('pendaftar/hapus/{id}',[PendaftarController::class,'destroy'])->name('hapuspendaftar');
+    Route::delete('pendaftar/destroy/{id}',[PendaftarController::class,'destroy'])->name('pendaftar.destroy');
     Route::get('pendaftar/edit/{id}',[PendaftarController::class,'edit'])->name('editpendaftar');
     Route::get('pendaftar/list/{jurusan}', [PendaftarController::class,'perjurusan'])->name('perjurusan');
     Route::get('pendaftar/export/excel',[PendaftarController::class,'exportExcel'])->name('pendaftar.exportExcel');
     Route::put('pendaftar/update/{id}', [PendaftarController::class,'update'])->name('pendaftar.update');
+    Route::get('pendaftar/cetak/{id}', [PendaftarController::class,'cetak'])->name('pendaftar.cetak');
+
     Route::get('ap', [ApController::class,'index'])->name('pendaftar_ap');
     Route::get('pondok', [PendaftarController::class,'pondok'])->name('pendaftar_pondok');
     Route::get('pembayaran', [AdminPembayaranController::class,'create'])->name('admin.pembayaran');
@@ -74,15 +77,20 @@ Route::prefix('admin')->group(function() {
     Route::post('ta/store', [TahunController::class,'store'])->name('ta.store');
 
     Route::get('gelombang', [GelombangController::class,'index'])->name('gelombang.index');
-    Route::post('gelombang/create', [Gelombangontroller::class,'create'])->name('gelombang.create');
-    Route::get('gelombang/{id}', [GelombangController::class,'show'])->name('gelombang.show');
+    Route::post('gelombang/create', [GelombangController::class,'create'])->name('gelombang.create');
     Route::post('gelombang/store', [GelombangController::class,'store'])->name('gelombang.store');
+    Route::get('gelombang/edit/{id}', [GelombangController::class,'edit'])->name('gelombang.edit');
+    Route::post('gelombang/update', [GelombangController::class,'update'])->name('gelombang.update');
+    Route::delete('gelombang/hapus/{id}', [GelombangController::class,'destroy'])->name('gelombang.destroy');
+    
 
     Route::get('history', [AdminPembayaranController::class,'history'])->name('admin.history');
     Route::get('laporan', [AdminPembayaranController::class,'laporan'])->name('admin.history.laporan');
     Route::get('tesfisik',[TesfisikController::class,'index'])->name('admin.tesfisik');
+    Route::get('tesfisik/{id}/edit', [TesFisikController::class, 'edit'])->name('admin.tesfisik.edit');
+    ROute::put('tesfisik/update', [TesfisikController::class,'update'])->name('admin.tesfisik.update');
     Route::get('tesfisik/{id}',[TesfisikController::class,'show'])->name('admin.tesfisik.show');
-    Route::get('tesfisik/hapus/{id}', [TesfisikController::class,'destroy'])->name('admin.tesfisik.destroy');
+    Route::delete('tesfisik/hapus/{id}', [TesfisikController::class,'destroy'])->name('admin.tesfisik.destroy');
 });
 Route::group(['middleware' => 'bendahara.access'], function () {
     Route::get('/pembayaran', [PembayaranController::class,'index'])->name('pembayaran.index');

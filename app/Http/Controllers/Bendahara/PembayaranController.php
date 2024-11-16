@@ -76,14 +76,13 @@ class PembayaranController extends Controller
             if ($startDate && $endDate) {
                 $query->whereBetween('created_at', [$startDate, $endDate]);
             }
-        })->paginate(20);
+        })->orderBy('created_at', 'desc')->paginate(20);
 
         return view('pembayaran.history', compact('historiPembayaran', 'startDate', 'endDate'));
     }
 
     public function destroy($id)
     {
-
         $pembayaran=Payment::findOrFail($id);
         $pembayaran->delete();
         alert()->success('Sukses!','Data berhasil dihapus');
