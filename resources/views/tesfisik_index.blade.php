@@ -40,8 +40,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (!empty($siswa) && $siswa->count())
-                            @foreach ($siswa as $key => $s)
+                        {{-- @if (!empty($siswa) && $siswa->count()) --}}
+                            @forelse ($siswa as $key => $s)
                                 <tr>
                                     <td>{{ $siswa->firstItem() + $key }}</td>
                                     <td>{{ $s->siswa->no_pendaf ?? '-' }}</td>
@@ -63,12 +63,12 @@
                                             onclick="confirmDelete({{ $s->id }})"><i class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
-                            @endforeach
-                        @else
+                           {{--  @endforelse --}}
+                        @empty
                             <tr>
                                 <td colspan="6">Tidak ada data</td>
                             </tr>
-                        @endif
+                        @endforelse
                     </tbody>
                 </table>
             </div>
