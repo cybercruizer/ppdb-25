@@ -44,7 +44,7 @@
                             @foreach ($siswa as $key => $s)
                                 <tr>
                                     <td>{{ $siswa->firstItem() + $key }}</td>
-                                    <td>{{ $s->siswa->no_pendaf }}</td>
+                                    <td>{{ $s->siswa->no_pendaf ?? '-' }}</td>
                                     <td>{{ strtoupper($s->siswa->nama) }}</td>
                                     <td>{{ $s->guru->nama }}</td>
                                     <td>{{ \Carbon\Carbon::parse($s->created_at)->format('d/m/Y H:i:s') }}</td>
