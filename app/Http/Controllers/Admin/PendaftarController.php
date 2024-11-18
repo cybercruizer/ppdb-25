@@ -148,9 +148,10 @@ class PendaftarController extends Controller
         $ortu->save();
 
         $tagihan = $siswa->tagihan;
+        $nominal_bayar = $request->input('tagihan_du');
 
         if ($request->input('pondok') == 1) {
-            $nominal_bayar = $request->input('tagihan_du')+300000;
+            $nominal_bayar = $nominal_bayar+300000;
         }
         $tagihan->siswa_id = $siswa->id;
         $tagihan->nama_tagihan = 'ppdb';
