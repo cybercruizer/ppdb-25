@@ -148,15 +148,7 @@ class PendaftarController extends Controller
         $ortu->save();
 
         $tagihan = $siswa->tagihan;
-      /**  if ($request->input('kategori') == 'AP50' || $request->input('kategori') == 'AP100') {
-            $nominal_bayar = 1000000;
-        } elseif ($request->input('pondok') == 1) {
-            $nominal_bayar = 1300000;
-        } elseif ($request->input('kategori') == 'KB') {
-            $nominal_bayar = 1000000;
-        } else {
-            $nominal_bayar = $request->input('tagihan_du');
-        }  */
+
         if ($request->input('pondok') == 1) {
             $nominal_bayar = $request->input('tagihan_du')+300000;
         }
