@@ -6,10 +6,12 @@ use App\Models\Siswa;
 use App\Models\Tahun;
 use App\Models\Bendahara\Tagihan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'siswa_id', 'tagihan_id', 'tahun_id', 'nominal'
     ];

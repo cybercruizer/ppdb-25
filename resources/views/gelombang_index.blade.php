@@ -9,23 +9,7 @@
 @section('content')
 
     <div class="card">
-        <div class="card-header">
-            <a href="{{ route('pendaftar.exportExcel') }}" class="btn btn-labeled btn-success my-3" target="_blank"><span
-                    class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT KE EXCEL</a>
-            <div class="card-tools my-3">
-                <form action="{{ route('caripendaftar') }}" method="GET">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari nama .." name="cari">
-                        {{ csrf_field() }}
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover text-nowrap">

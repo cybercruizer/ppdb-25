@@ -33,6 +33,12 @@ class PendaftarController extends Controller
         confirmDelete('Hapus Pendaftar', 'Apakah anda yakin akan menghapus data ini?');
         return view('pendaftar', ['siswa' => $siswa, 'title' => $title]);
     }
+    public function terhapus() {
+        $siswa = Siswa::onlyTrashed()->orderBy('id', 'DESC')->paginate($this->perhalaman);
+        $title = 'Data Pendaftar yang Dihapus';
+        confirmDelete('Hapus Pendaftar', 'Apakah anda yakin akan menghapus data ini?');
+        return view('pendaftar', ['siswa' => $siswa, 'title' => $title]);
+    }
     public function pondok()
     {
         $siswa = Siswa::where('no_pendaf', 'LIKE', '%' . 'PDK' . '%')
@@ -171,7 +177,8 @@ class PendaftarController extends Controller
         try {
             $pendaftar = Siswa::findOrFail($id);
             $pendaftar->delete();
-            $pendaftar->tagihan()->delete();
+            $pendaftar->tagihan->delete();
+            $pendaftar->fisik->delete();
             $pendaftar->ortu->delete();
             return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
         } catch (\Exception $e) {

@@ -55,6 +55,7 @@ Route::prefix('admin')->group(function() {
     Route::put('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('pendaftar', [PendaftarController::class,'index'])->name('pendaftar');
+    Route::get('pendaftar/terhapus', [PendaftarController::class,'terhapus'])->name('pendaftar.terhapus');
     Route::get('pendaftar/cari',[PendaftarController::class,'cari'])->name('caripendaftar');
     Route::delete('pendaftar/destroy/{id}',[PendaftarController::class,'destroy'])->name('pendaftar.destroy');
     Route::get('pendaftar/edit/{id}',[PendaftarController::class,'edit'])->name('editpendaftar');

@@ -134,7 +134,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="tinggi" class="col-4 col-form-label">Tinggi badan</label>
-                            <div class="col-md-3 col-8 input-group">
+                            <div class="col-md-5 col-8 input-group">
                                 <input type="number" step="0.1" class="form-control" id="tinggi" name="tinggi"
                                     aria-describedby="cm">
                                 <div class="input-group-append">
@@ -144,7 +144,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="berat" class="col-4 col-form-label">Berat badan</label>
-                            <div class="col-md-3 col-8 input-group">
+                            <div class="col-md-5 col-8 input-group">
                                 <input type="number" step="0.1" class="form-control" id="berat" name="berat"
                                     aria-describedby="kg">
                                 <div class="input-group-append">
