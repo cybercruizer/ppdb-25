@@ -12,18 +12,20 @@
         <div class="card-header">
             <a href="{{ route('pendaftar.exportExcel') }}" class="btn btn-labeled btn-success my-3" target="_blank"><span
                     class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT KE EXCEL</a>
+            <a href="/admin/pendaftar/terhapus" class="btn btn-danger btn-labeled my-3"><span
+                class="btn-label"><i class="fa fa-trash"></i></span> Pendaftar dihapus</i></a>
             <div class="card-tools my-3">
-                <form action="{{ route('caripendaftar') }}" method="GET">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari nama .." name="cari">
-                        {{ csrf_field() }}
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
+                    <form action="{{ route('caripendaftar') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Cari nama .." name="cari">
+                            {{ csrf_field() }}
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
             </div>
         </div>
         <div class="card-body">
@@ -69,9 +71,15 @@
                                         <a class="btn btn-primary btn-sm" role="button"
                                             href="/admin/pendaftar/edit/{{ $s->id }}"><i
                                                 class="fas fa-pencil-alt"></i></a><br>
-                                        <button type="submit" class="btn btn-danger btn-sm delete-button"
-                                            data-toggle="tooltip" title="Delete" data-id="{{ $s->id }}" data-text="{{ $s->nama}}"><i
-                                                class="far fa-trash-alt"></i></button>
+                                            @if(\Route::current()->getName()=='pendaftar.terhapus')
+                                                <button type="submit" class="btn btn-danger btn-sm restore-button"
+                                                data-toggle="tooltip" title="restore" data-id="{{ $s->id }}" data-text="{{ $s->nama}}"><i
+                                                    class="fas fa-undo"></i></button>
+                                            @else
+                                                <button type="submit" class="btn btn-danger btn-sm delete-button"
+                                                    data-toggle="tooltip" title="Delete" data-id="{{ $s->id }}" data-text="{{ $s->nama}}"><i
+                                                        class="far fa-trash-alt"></i></button>
+                                            @endif
                                         {{-- <a href="{{ route('pendaftar.destroy', $s->id) }}" class="btn btn-danger btn-sm"
                                             data-confirm-delete="true"><i class="far fa-trash-alt"></i></a> --}}
                                         <a class="btn btn-success btn-sm" role="button"
@@ -145,6 +153,58 @@
                                 Toast.fire({
                                     icon: 'error',
                                     title: 'Ada kesalahan dalam penghapusan data'
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+            $('.restore-button').click(function() {
+                var id = $(this).data('id');
+                var text = $(this).data('text');
+                var button = $(this);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                // Tampilkan konfirmasi delete 
+                Swal.fire({
+                    title: 'Anda yakin?',
+                    text: "Anda akan mengembalikan " + text + ". ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Kembalikan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Lakukan request delete ke server 
+                        $.ajax({
+                            url: '/admin/pendaftar/restore/' + id,
+                            type: 'get',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                // Tampilkan toast sukses 
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: text + ' berhasil dikembalikan'
+                                });
+                                // Optional: hapus baris tabel atau lainnya 
+                                button.closest('tr').remove();
+                            },
+                            error: function(xhr) { // Tampilkan toast error 
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: 'Ada kesalahan dalam pengembalian data'
                                 });
                             }
                         });

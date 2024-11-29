@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Storage;
 use App\Models\Guru;
+use App\Models\Ortu;
+use App\Models\Fisik;
 use App\Models\Siswa;
 use App\Exports\SiswaExport;
 use Illuminate\Http\Request;
@@ -15,6 +17,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PendaftarController extends Controller
 {
+    protected $perhalaman;
     /**
      * Display a listing of the resource.
      *
@@ -183,6 +186,24 @@ class PendaftarController extends Controller
             return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat menghapus data'], 500);
+        }
+    }
+    public function restore($id)
+    {
+        $tagihan=Tagihan::withTrashed()->where('siswa_id',$id)->get();
+        dd($tagihan);
+        try {
+            $pendaftar = Siswa::withTrashed()->findOrFail($id);
+            $pendaftar->restore();
+            $tagihan=Tagihan::withTrashed()->where('siswa_id',$id)->get();
+            $tagihan->restore();
+            $fisik= Fisik::withTrashed()->where('siswa_id',$id)->get();
+            $fisik->restore();
+            $ortu= Ortu::withTrashed()->where('siswa_id',$id)->get();
+            $ortu->restore();
+            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e], 500);
         }
     }
     public function cari(Request $request)

@@ -129,6 +129,37 @@
                     </table>
                 </x-adminlte-card>
             </div>
+            <div class="col-md-6 col-sm-12">
+                <x-adminlte-card title="Distribusi ukuran baju" theme="navy" icon="fas fa-lg fa-fan" collapsible>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-warning">
+                                <th scope="col">Jurusan</th>
+                                <th scope='col'>XXL</th>
+                                <th scope='col'>XL</th>
+                                <th scope='col'>L</th>
+                                <th scope='col'>M</th>
+                                <th scope='col'>S</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (['TKJ', 'TPM', 'TKR', 'TSM', 'TITL', 'KUL', 'PHT'] as $jurusan)
+                                <tr>
+                                    <td>{{ $jurusan }}</td>
+                                    <td>{{ $dataUkuran[$jurusan]['XXL'] ?? 0 }}</td>
+                                    <td>{{ $dataUkuran[$jurusan]['XL'] ?? 0 }}</td>
+                                    <td>{{ $dataUkuran[$jurusan]['L'] ?? 0 }}</td>
+                                    <td>{{ $dataUkuran[$jurusan]['M'] ?? 0 }}</td>
+                                    <td>{{ $dataUkuran[$jurusan]['S'] ?? 0 }}</td>
+                                </tr>
+                            @endforeach
+
+
+                        </tbody>
+                    </table>
+                </x-adminlte-card>
+            </div>
         </div>
 
         <script>

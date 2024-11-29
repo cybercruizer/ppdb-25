@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class TesfisikController extends Controller
 {
+    protected $perhalaman;
     public function __construct()
     {
         $this->middleware('auth');

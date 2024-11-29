@@ -131,7 +131,7 @@
                     toast: true,
                     position: 'top-end',
                     icon: 'success',
-                    title: '{{ session('success') }}',
+                    title: '{{ session("success") }}',
                     showConfirmButton: false,
                     timer: 5000,
                     timerProgressBar: true

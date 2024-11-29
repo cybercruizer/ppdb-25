@@ -58,6 +58,7 @@ Route::prefix('admin')->group(function() {
     Route::get('pendaftar/terhapus', [PendaftarController::class,'terhapus'])->name('pendaftar.terhapus');
     Route::get('pendaftar/cari',[PendaftarController::class,'cari'])->name('caripendaftar');
     Route::delete('pendaftar/destroy/{id}',[PendaftarController::class,'destroy'])->name('pendaftar.destroy');
+    Route::get('pendaftar/restore/{id}',[PendaftarController::class,'restore'])->name('pendaftar.restore');
     Route::get('pendaftar/edit/{id}',[PendaftarController::class,'edit'])->name('editpendaftar');
     Route::get('pendaftar/list/{jurusan}', [PendaftarController::class,'perjurusan'])->name('perjurusan');
     Route::get('pendaftar/export/excel',[PendaftarController::class,'exportExcel'])->name('pendaftar.exportExcel');
