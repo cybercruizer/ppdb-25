@@ -72,7 +72,11 @@ class HomeController extends Controller
                 $dataUkuran[$j][$uk] = Fisik::whereIn('siswa_id', $siswaIds)
                     ->where('ukuran_baju', $uk)
                     ->count();
+                $totalUkuran[$uk] = Fisik::where('ukuran_baju', $uk)->count();
             }
+        }
+        foreach ($ukuran as $uk) {
+            $totalUkuran[$uk] = Fisik::where('ukuran_baju', $uk)->count();
         }
         //dd($dataUkuran);
         $data = [
@@ -85,6 +89,6 @@ class HomeController extends Controller
             ['label' => 'PHT', 'value' => $perhotelan, 'sub_value' => $perhotelandu, 'perhotelanL' => $perhotelanL, 'perhotelanP' => $perhotelanP],
         ];
         //dd($data);
-        return view('home', compact(['siswa', 'siswadu', 'data', 'pondok', 'ap', 'dataUkuran']));
+        return view('home', compact(['siswa', 'siswadu', 'data', 'pondok', 'ap', 'dataUkuran','totalUkuran']));
     }
 }

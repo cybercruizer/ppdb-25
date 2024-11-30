@@ -41,29 +41,22 @@
                     </thead>
                     <tbody>
                         {{-- @if (!empty($siswa) && $siswa->count()) --}}
-                            @forelse ($siswa as $key => $s)
-                                <tr>
-                                    <td>{{ $siswa->firstItem() + $key }}</td>
-                                    <td>{{ $s->siswa->no_pendaf ?? '-' }}</td>
-                                    <td>{{ strtoupper($s->siswa->nama ?? 'kosong')}}</td>
-                                    <td>{{ $s->guru->nama ?? '-' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($s->created_at)->format('d/m/Y H:i:s') }}</td>
-                                    <td>
-                                        <a class="btn btn-info btn-sm" role="button"
-                                            href="/pendaftar/cetak/{{ $s->id }}"><i class="fas fa-print"></i></a>
-                                        <button class="btn btn-primary btn-sm" role="button"
-                                            onclick="editData({{ $s->id }})"><i
-                                                class="fas fa-pencil-alt"></i></button>
-                                        <form action="{{ route('admin.tesfisik.destroy', $s->id) }}" method="POST"
-                                            style="display: none;" id="delete-form-{{ $s->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{ $s->id }})"><i class="far fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                           {{--  @endforelse --}}
+                        @forelse ($siswa as $key => $s)
+                            <tr>
+                                <td>{{ $siswa->firstItem() + $key }}</td>
+                                <td>{{ $s->siswa->no_pendaf ?? '-' }}</td>
+                                <td>{{ strtoupper($s->siswa->nama ?? 'kosong') }}</td>
+                                <td>{{ $s->guru->nama ?? '-' }}</td>
+                                <td>{{ \Carbon\Carbon::parse($s->created_at)->format('d/m/Y H:i:s') }}</td>
+                                <td>
+                                    <a class="btn btn-info btn-sm" role="button" href="/pendaftar/cetak/{{ $s->id }}"><i class="fas fa-print"></i></a>
+                                    <button class="btn btn-primary btn-sm" role="button" onclick="editData({{ $s->id }})"><i class="fas fa-pencil-alt"></i></button>
+                                    <form action="{{ route('admin.tesfisik.destroy', $s->id) }}" method="POST" style="display: none;" id="delete-form-{{ $s->id }}"> @csrf @method('DELETE')
+                                    </form>
+                                    <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $s->id }})"><i     class="far fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                            {{--  @endforelse --}}
                         @empty
                             <tr>
                                 <td colspan="6">Tidak ada data</td>
@@ -81,13 +74,13 @@
     </div>
 
     <!-- Modal for Editing Data -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" data-backdrop="static"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form id="editForm" action="{{ route('admin.tesfisik.update') }}" method="POST">
                     @csrf
-                    @method('PUT')
+                    @method('PATCH')
                     <input type="hidden" name="id" id="data-id">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
@@ -117,7 +110,8 @@
                         <div class="form-group row">
                             <label for="tempat_lahir" class="col-4 col-form-label">Tempat Lahir</label>
                             <div class="col-8">
-                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" disabled>
+                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                                    disabled>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -129,7 +123,8 @@
                         <div class="form-group row">
                             <label for="jenis_kelamin" class="col-4 col-form-label">Jenis Kelamin</label>
                             <div class="col-6">
-                                <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin" disabled>
+                                <input type="text" class="form-control" id="jenis_kelamin" name="jenis_kelamin"
+                                    disabled>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -150,6 +145,132 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="kg">kg</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="mata" class="col-4 col-form-label">Mata</label>
+                            <div class="col-8">
+                                <select name="mata" id="mata" class="form-control" required>
+                                    <option value="N" {{ old('mata') == 'N' ? 'selected' : '' }}>Normal</option>
+                                    <option value="BW" {{ old('mata') == 'BW' ? 'selected' : '' }}>Buta Warna</option>
+                                    <option value="RJ" {{ old('mata') == 'RJ' ? 'selected' : '' }}>Rabun Jauh</option>
+                                    <option value="RD" {{ old('mata') == 'RD' ? 'selected' : '' }}>Rabun Dekat
+                                    </option>
+                                    <option value="P" {{ old('mata') == 'P' ? 'selected' : '' }}>Plus</option>
+                                    <option value="M" {{ old('mata') == 'M' ? 'selected' : '' }}>Minus</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="telinga" class="col-4 col-form-label">Telinga</label>
+                            <div class="col-8">
+                                <select name="telinga" id="telinga" class="form-control" required>
+                                    <option value="N" {{ old('telinga') == 'N' ? 'selected' : '' }}>Normal</option>
+                                    <option value="KNK" {{ old('telinga') == 'KNK' ? 'selected' : '' }}>Kanan Kurang
+                                    </option>
+                                    <option value="KRK" {{ old('telinga') == 'KRK' ? 'selected' : '' }}>Kiri Kurang
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="penyakit" class="col-4 col-form-label">Penyakit</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" name="penyakit" id="penyakit"
+                                    value="{{ old('penyakit') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="obat" class="col-4 col-form-label">Ketergantungan obat</label>
+                            <div class="col-8">
+                                <select name="obat" id="obat" class="form-control" required>
+                                    <option value="0" {{ old('obat') == '0' ? 'selected' : '' }}>Tidak</option>
+                                    <option value="1" {{ old('obat') == '1' ? 'selected' : '' }}>Ya</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tato" class="col-4 col-form-label">Tato / Tindik</label>
+                            <div class="col-8">
+                                <select name="tato" id="tato" class="form-control" required>
+                                    <option value="N" {{ old('tato') == 'N' ? 'selected' : '' }}>Tidak ada tato/tindik</option>
+                                    <option value="TA" {{ old('tato') == 'TA' ? 'selected' : '' }}>Ada tato
+                                    </option>
+                                    <option value="TI" {{ old('tato') == 'TI' ? 'selected' : '' }}>Ada tindik
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="disabilitas" class="col-4 col-form-label">Disabilitas</label>
+                            <div class="col-8">
+                                <select name="disabilitas" id="disabilitas" class="form-control" required>
+                                    <option value="N">Tidak
+                                    </option>
+                                    <option value="TW">Tuna Wicara</option>
+                                    <option value="TR">Tuna Rungu</option>
+                                    <option value="TN">Tuna Netra</option>
+                                    <option value="TD">Tuna Daksa</option>
+                                    <option value="TG">Tuna Grahita</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="ibadah" class="col-4 col-form-label">Ibadah</label>
+                            <div class="col-8">
+                                <select name="ibadah" id="ibadah" class="form-control" required>
+                                    <option value="B">Baik</option>
+                                    <option value="C">Cukup</option>
+                                    <option value="K">Kurang</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="alquran" class="col-4 col-form-label">Al Quran</label>
+                            <div class="col-8">
+                                <select name="alquran" id="alquran" class="form-control" required>
+                                    <option value="S">Sesuai tajwid
+                                    </option>
+                                    <option value="B">Baik, lancar
+                                    </option>
+                                    <option value="T">Terbata-bata
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="ukuran_baju" class="col-4 col-form-label">Ukuran Baju</label>
+                            <div class="col-8">
+                                <select name="ukuran_baju" id="ukuran_baju" class="form-control" required>
+                                    <option value="">--Pilih ukuran baju--</option>
+                                    <option value="S">S
+                                    </option>
+                                    <option value="M">M
+                                    </option>
+                                    <option value="L">L
+                                    </option>
+                                    <option value="XL">XL
+                                    </option>
+                                    <option value="XXL">XXL
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 bg-info text-center">
+                                <h5 class="text-white mb-1 mt-1">PRESTASI</h5>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-1">
+                            <label for="akademik" class="col-4 col-form-label">Akademik</label>
+                            <div class="col-8">
+                                <textarea name="akademik" id="akademik" rows="3" class="form-control" placeholder="1.">{{ old('akademik') }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="non_akademik" class="col-4 col-form-label">Non akademik</label>
+                            <div class="col-8">
+                                <textarea name="non_akademik" id="non_akademik" rows="3" class="form-control" placeholder="1.">{{ old('non_akademik') }}</textarea>
                             </div>
                         </div>
                         <!-- Add other fields from the form_cekfisik.blade.php here -->
@@ -220,6 +341,17 @@
                     $('#jenis_kelamin').val(data.siswa.jenis_kelamin);
                     $('#tinggi').val(data.tinggi);
                     $('#berat').val(data.berat);
+                    $('#mata').val(data.mata);
+                    $('#telinga').val(data.telinga);
+                    $('#obat').val(data.obat);
+                    $('#penyakit').val(data.penyakit);
+                    $('#tato').val(data.tato);
+                    $('#disabilitas').val(data.disabilitas);
+                    $('#ibadah').val(data.ibadah);
+                    $('#alquran').val(data.alquran);
+                    $('#akademik').val(data.akademik);
+                    $('#non_akademik').val(data.non_akademik);
+                    $('#ukuran_baju').val(data.ukuran_baju);
                     // Add more form fields as needed
                 }
             });

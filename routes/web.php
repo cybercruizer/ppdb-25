@@ -90,7 +90,7 @@ Route::prefix('admin')->group(function() {
     Route::get('laporan', [AdminPembayaranController::class,'laporan'])->name('admin.history.laporan');
     Route::get('tesfisik',[TesfisikController::class,'index'])->name('admin.tesfisik');
     Route::get('tesfisik/{id}/edit', [TesFisikController::class, 'edit'])->name('admin.tesfisik.edit');
-    ROute::put('tesfisik/update', [TesfisikController::class,'update'])->name('admin.tesfisik.update');
+    ROute::patch('tesfisik/update', [TesfisikController::class,'update'])->name('admin.tesfisik.update');
     Route::get('tesfisik/{id}',[TesfisikController::class,'show'])->name('admin.tesfisik.show');
     Route::delete('tesfisik/hapus/{id}', [TesfisikController::class,'destroy'])->name('admin.tesfisik.destroy');
 });

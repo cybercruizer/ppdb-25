@@ -32,9 +32,23 @@ class TesfisikController extends Controller
     {
         $validatedData = $request->validate([
             'id' => 'required|exists:fisik,id',
+            'tinggi' => 'sometimes|numeric',
+            'berat' => 'sometimes|numeric',
+            'mata' => 'sometimes|string',
+            'telinga'=> 'sometimes|string',
+            'penyakit' => 'sometimes|string',
+            'obat' => 'sometimes|boolean',
+            'tato' => 'sometimes|string',
+            'tindik' => 'sometimes|string',
+            'disabilitas' => 'sometimes|string',
+            'ibadah' => 'sometimes|string',
+            'alquran' => 'sometimes|string',
+            'ukuran_baju' => 'sometimes|in:S,M,L,XL,XXL',
+            'akademik' => 'sometimes|string',
+            'non_akademik'=> 'sometimes|string',
             // Add more validation rules for the form fields
         ]);
-    
+        //dd($validatedData);
         // Find the record to update
         $record = Fisik::findOrFail($validatedData['id']);
     

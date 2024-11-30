@@ -154,6 +154,12 @@
                                     <td>{{ $dataUkuran[$jurusan]['S'] ?? 0 }}</td>
                                 </tr>
                             @endforeach
+                            <tr class="table-success">
+                                <td>TOTAL</td>
+                                @foreach (['XXL', 'XL', 'L', 'M', 'S'] as $uk)
+                                    <td>{{$totalUkuran[$uk] ?? 0}}</td>
+                                @endforeach
+                            </tr>
 
 
                         </tbody>

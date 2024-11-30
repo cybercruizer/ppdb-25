@@ -73,7 +73,7 @@
                                                 class="fas fa-pencil-alt"></i></a><br>
                                             @if(\Route::current()->getName()=='pendaftar.terhapus')
                                                 <button type="submit" class="btn btn-danger btn-sm restore-button"
-                                                data-toggle="tooltip" title="restore" data-id="{{ $s->id }}" data-text="{{ $s->nama}}"><i
+                                                data-toggle="tooltip" title="kembalikan" data-id="{{ $s->id }}" data-text="{{ $s->nama}}"><i
                                                     class="fas fa-undo"></i></button>
                                             @else
                                                 <button type="submit" class="btn btn-danger btn-sm delete-button"

@@ -191,17 +191,20 @@ class PendaftarController extends Controller
     public function restore($id)
     {
         $tagihan=Tagihan::withTrashed()->where('siswa_id',$id)->get();
-        dd($tagihan);
+        //dd($tagihan);
         try {
-            $pendaftar = Siswa::withTrashed()->findOrFail($id);
-            $pendaftar->restore();
-            $tagihan=Tagihan::withTrashed()->where('siswa_id',$id)->get();
+            $siswa = Siswa::withTrashed()->findOrFail($id);
+            $siswa->restore();
+
+            $tagihan = Tagihan::withTrashed()->where('siswa_id', $id)->first();
             $tagihan->restore();
-            $fisik= Fisik::withTrashed()->where('siswa_id',$id)->get();
+
+            $fisik = Fisik::withTrashed()->where('siswa_id', $id)->first();
             $fisik->restore();
-            $ortu= Ortu::withTrashed()->where('siswa_id',$id)->get();
+
+            $ortu = Ortu::withTrashed()->where('siswa_id', $id)->first();
             $ortu->restore();
-            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+            return response()->json(['success' => true, 'message' => 'Data berhasil dikembalikan']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e], 500);
         }

@@ -325,7 +325,7 @@ return [
         [
             'text'        => 'Hasil Tes Fisik',
             'url'         => 'admin/tesfisik',
-            'icon'        => 'far fa-fw fa-star',
+            'icon'        => 'fas fa-user-md',
         ],
 
         //Khusus Bendahara
