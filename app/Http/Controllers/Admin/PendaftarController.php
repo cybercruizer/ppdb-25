@@ -137,6 +137,7 @@ class PendaftarController extends Controller
         //$siswa -> transport = $request->input('transportasi');
         //$siswa -> informasi = $request->input('info');
         $siswa->rekomendator = $request->input('rekomendator');
+        $siswa->keterangan = $request->input('keterangan');
         $siswa->kategori = $request->input('kategori');
         $siswa->guru_id = $request->input('guru_id');
         $siswa->pondok = $request->input('pondok');

@@ -126,6 +126,11 @@
                                 {!! Form::select('guru_id', $guru, $siswa->guru_id, ['class'=>'form-control select2','placeholder'=>'Pilih nama guru']) !!}
                             </td>
                         </tr>
+                        <tr>
+                            <td>Keterangan</td>
+                            <td><input  value="{{$siswa->keterangan}}" class="border rounded-pill shadow-sm form-control-lg" type="text" name="keterangan" style="width: 100%;"></td>
+                        </tr>
+
                         {{--<tr>
                             <td>Hobi</td>
                             <td>
