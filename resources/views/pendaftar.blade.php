@@ -66,7 +66,7 @@
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($s->created_at)->format('d/m/Y') }}</td>
 
-                                    <td><a class="btn btn-info btn-sm" role="button"
+                                    <td {{$s->keterangan ? 'rowspan=2' : ''}}><a class="btn btn-info btn-sm" role="button"
                                             href="/pendaftar/cetak/{{ $s->id }}"><i class="fas fa-print"></i></a>
                                         <a class="btn btn-primary btn-sm" role="button"
                                             href="/admin/pendaftar/edit/{{ $s->id }}"><i
@@ -86,6 +86,13 @@
                                             href="https://wa.me/+62{{ $s->no_telp }}" target="_blank">WA</a>
                                     </td>
                                 </tr>
+                                @if($s->keterangan != null)
+                                    <tr>
+                                        <td colspan="7">
+                                            <small class="text-danger"><strong>Keterangan: </strong>{{$s->keterangan ?? "-"}}</small>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         @else
                             <tr>

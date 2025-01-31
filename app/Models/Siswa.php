@@ -7,6 +7,7 @@ use App\Models\Fisik;
 use App\Models\Bendahara\Payment;
 use App\Models\Bendahara\Tagihan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -36,9 +37,20 @@ class Siswa extends Model
         'jurusan',
         'alasan',
         'ortu_id',
+        'tahun_id',
+        'guru_id',
+        'keterangan',
     ];
     protected $append = ['total_pembayaran'];
 
+    protected static function booted()
+    {
+        static::addGlobalScope('tahun_aktif', function (Builder $builder) {
+            $builder->whereHas('tahun', function($query) {
+                $query->where('is_active', true);
+            });
+        });
+    }
     public function ortu() {
         return $this->hasOne(Ortu::class);
     }

@@ -74,9 +74,11 @@ Route::prefix('admin')->group(function() {
         return Excel::download(new PembayaranExport, "pembayaran-{$date}.xlsx");
     })->name('pembayaran.exportExcel');
     Route::get('ta', [TahunController::class,'index'])->name('ta.index');
+    Route::get('ta/edit/{id}', [TahunController::class,'edit'])->name('ta.edit');
+    Route::post('ta/update', [TahunController::class,'update'])->name('ta.update');
     Route::post('ta/create', [TahunController::class,'create'])->name('ta.create');
-    Route::get('ta/{id}', [TahunController::class,'show'])->name('ta.show');
     Route::post('ta/store', [TahunController::class,'store'])->name('ta.store');
+    Route::delete('ta/hapus/{id}', [TahunController::class,'destroy'])->name('ta.destroy');
 
     Route::get('gelombang', [GelombangController::class,'index'])->name('gelombang.index');
     Route::post('gelombang/create', [GelombangController::class,'create'])->name('gelombang.create');
