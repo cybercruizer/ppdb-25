@@ -86,6 +86,9 @@ Route::prefix('admin')->group(function() {
     Route::get('gelombang/edit/{id}', [GelombangController::class,'edit'])->name('gelombang.edit');
     Route::post('gelombang/update', [GelombangController::class,'update'])->name('gelombang.update');
     Route::delete('gelombang/hapus/{id}', [GelombangController::class,'destroy'])->name('gelombang.destroy');
+
+    Route::get('tagihan/{id}', [AdminPembayaranController::class,'tagihanEdit'])->name('tagihan.edit');
+    Route::post('tagihanUpdate', [AdminPembayaranController::class,'tagihanUpdate'])->name('tagihan.update');
     
 
     Route::get('history', [AdminPembayaranController::class,'history'])->name('admin.history');

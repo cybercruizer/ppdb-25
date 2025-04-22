@@ -82,4 +82,36 @@ class AdminPembayaranController extends Controller
         $pembayarans = Payment::with('siswa','tagihan')->get();
         return view('pembayaran.laporan', compact('pembayarans'));
     }
+    public function tagihanEdit($id)
+    {
+        // Find the tagihan by ID
+        $tagihan = Siswa::with('tagihan')->findOrFail($id);
+        //dd($tagihan);
+
+        return view('pembayaran.tagihan_edit', compact('tagihan', 'siswa'));
+    }
+
+    public function tagihanUpdate(Request $request)
+    {
+        $bayar = str_replace('.', '', $request->nominal);
+        $request->validate([
+            'siswa_id' => 'required|exists:siswas,id',
+            'pass' => 'required',
+            'nominal' => 'required',
+        ],
+        [
+            'pass.required' => 'PIN harus diisi',
+            'nominal.required' => 'nominal harus diisi',
+        ]);
+        if ($request->pass == '8765') {
+            $siswa = Siswa::findOrFail($request->siswa_id);
+            $siswa->tagihan->update(['nominal' => $bayar]);
+
+            return response()->json(['message' => 'Sukses, Tagihan untuk '.$siswa->nama.' terupdate']);
+        } else {
+            return response()->json(['message' => 'Gagal, password salah']);
+        }
+
+        
+    }
 }

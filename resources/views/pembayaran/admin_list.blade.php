@@ -33,7 +33,7 @@
                 <th>Jurusan</th>
                 <th>Tagihan</th>
                 <th>Ket.</th>
-                <th>WA</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -55,6 +55,7 @@
                 </td>
                 <td>
                     <a href="https://wa.me/62{{ $s->no_telp }}" class="btn btn-success" target="_blank">WA</a>
+                    <button class="btn btn-success editTagihanBtn" data-id="{{ $s->id }}" data-nominal="{{ $s->tagihan->nominal }}" data-toggle="modal" data-target="#editTagihanModal"><i class="fas fa-pencil-alt"></i></button>
                 </td>
             </tr>
             @endforeach
@@ -67,70 +68,33 @@
             {!! $siswaList->links() !!}
         </ul>
     </div>
-
-    @foreach($siswaList as $siswa)
-    <div class="modal fade" id="inputPembayaranModal{{ $siswa->id }}" tabindex="-1" role="dialog" aria-labelledby="inputPembayaranModalLabel{{ $siswa->id }}" aria-hidden="true">
+    <div class="modal fade" id="editTagihanModal" tabindex="-1" role="dialog" aria-labelledby="editTagihanModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="inputPembayaranModalLabel{{ $siswa->id }}">Input Pembayaran untuk {{ $siswa->nama }}</h5>
+                    <h5 class="modal-title" id="editTagihanModalLabel">Edit Tagihan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Form untuk input pembayaran -->
-                    <form action="{{ route('pembayaran.store') }}" method="POST">
+                    <form id="editTagihanForm">
                         @csrf
-                        <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
-                        <input type="hidden" name="tagihan_id" value="{{ $siswa->tagihan->id }}">
-                        {{-- <div class="form-group">
-                            <label for="tagihan_id">Pilih Tagihan:</label>
-                            <select name="tagihan_id" id="tagihan_id" class="form-control">
-                                @foreach($tagihanList as $tagihan)
-                                    <option value="{{ $tagihan->id }}">{{ $tagihan->nama_tagihan }}</option>
-                                @endforeach
-                            </select>
+                        <input type="hidden" id="siswaId" name="siswa_id">
+                        <div class="form-group">
+                            <label for="editNominal">Nominal Tagihan:</label>
+                            <input type="text" id="editNominal" name="nominal" class="form-control rupiah">
                         </div>
                         <div class="form-group">
-                            <label for="tahun_id">Pilih Tahun:</label>
-                            <select name="tahun_id" id="tahun_id" class="form-control">
-                                @foreach($tahunList as $tahun)
-                                    <option value="{{ $tahun->id }}">{{ $tahun->tahun }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-                        <label for="tagihan">Jumlah Tagihan:</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Rp </span>
-                            </div>
-
-                            <input id="tagihan" name="tagihan" type="text" class="form-control rupiah" aria-label="Nominal" aria-describedby="basic-addon1" value="{{ $siswa->tagihan->nominal ?? '0' }}" disabled>
+                            <label for="pass">PIN EDIT:</label>
+                            <input type="password" id="pass" name="pass" class="form-control">
                         </div>
-                        <label for="kekurangan">Kekurangan:</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Rp </span>
-                            </div>
-
-                            <input id="kekurangan" name="kekurangan" type="text" class="form-control rupiah" aria-label="Nominal" aria-describedby="basic-addon1" value="{{ $siswa->tagihan->nominal - $siswa->total_pembayaran }}" disabled>
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="tagihan">Jumlah Tagihan:</label>
-                            <input type="number" name="tagihan" id="tagihan" class="form-control rupiah" value="{{ $siswa->tagihan->nominal ?? '0' }}" disabled>
-                        </div> --}}
-                        <div class="form-group">
-                            <label for="nominal">Nominal Pembayaran:</label>
-                            <input type="text" name="nominal" id="nominal" class="form-control rupiah">
-                        </div>
-                        <button type="text" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-@endforeach
 </div>
 @stop
 
@@ -147,6 +111,46 @@
                 reverse: true
             });
         });
+</script>
+<script>
+    $(document).ready(function () {
+        // Open modal and populate fields
+        $('.editTagihanBtn').on('click', function () {
+            const siswaId = $(this).data('id');
+            const nominal = $(this).data('nominal');
+
+            $('#siswaId').val(siswaId);
+            $('#editNominal').val(nominal);
+        });
+
+        // Handle form submission via AJAX
+        $('#editTagihanForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const siswaId = $('#siswaId').val();
+            const nominal = $('#editNominal').val();
+            const pass = $('#pass').val();
+            const url = "{{ route('tagihan.update') }}";
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    siswa_id: siswaId,
+                    nominal: nominal,
+                    pass:pass
+                },
+                success: function (response) {
+                    alert(response.message); // Display the message sent by the controller
+                    location.reload(); // Reload the page to reflect changes
+                },
+                error: function (xhr) {
+                    alert(xhr.responseJSON.message || 'Ada kesalahan saat update tagihan.');
+                }
+            });
+        });
+    });
 </script>
 <script> console.log('halaman pembayaran'); </script>
 @stop
