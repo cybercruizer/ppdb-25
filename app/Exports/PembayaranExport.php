@@ -30,7 +30,7 @@ class PembayaranExport implements FromQuery, WithHeadings, WithMapping
             $siswa->no_pendaf,
             $siswa->nama,
             $siswa->asal_sekolah,
-            $siswa->tagihan->nominal,
+            $siswa->tagihan->nominal ?? 0,
             $siswa->totalPembayaran,
             $siswa->kekurangan()
         ];
