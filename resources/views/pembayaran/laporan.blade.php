@@ -4,7 +4,7 @@
     </head>
     <body>
         <h2>Laporan Pembayaran Daftar Ulang</h2>
-        <h2>PPDB 2024/ 2025</h2>
+        <h2>PPDB 2025/ 2026</h2>
         <table>
             <tr>
                 <td>No</td>
