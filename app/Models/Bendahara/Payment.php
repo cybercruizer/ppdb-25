@@ -34,4 +34,11 @@ class Payment extends Model
     {
         return $this->belongsTo(Tahun::class, 'tahun_id');
     }
+    //get total pembayaran untuk siswa
+    public function getTotalPembayaranAttribute()
+    {
+        return $this->siswa->payments()->where('tagihan_id', $this->tagihan_id)
+            ->sum('nominal');
+    }
+    
 }

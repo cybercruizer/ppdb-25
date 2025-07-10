@@ -11,8 +11,8 @@
                 <td>Nama</td>
                 <td>No Pendaftaran</td>
                 <td>Jurusan</td>
-                <td>Nominal Bayar</td>
-                <td>Tgl Bayar</td>
+                <td>Tagihan</td>
+                <td>Total Bayar</td>
             </tr>
             @foreach($pembayarans as $key=>$p)
                 <tr>
@@ -20,8 +20,8 @@
                     <td>{{ strtoupper($p->siswa->nama) }}</td>
                     <td>{{ $p->siswa->no_pendaf }}</td>
                     <td>{{ $p->siswa->jurusan }}</td>
+                    <td>{{ $p->siswa->tagihan->nominal }}</td>
                     <td>{{ $p->total_nominal }}</td>
-                    <td>{{\Carbon\Carbon::parse($p->created_at)->format('d/m/Y')}}</td>
 
                 </tr>
             @endforeach
