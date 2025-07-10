@@ -20,7 +20,7 @@
                     <td>{{ strtoupper($p->siswa->nama) }}</td>
                     <td>{{ $p->siswa->no_pendaf }}</td>
                     <td>{{ $p->siswa->jurusan }}</td>
-                    <td><p class="rupiah">{{ $p->total_nominal }}</p></td>
+                    <td>{{ $p->total_nominal }}</td>
                     <td>{{\Carbon\Carbon::parse($p->created_at)->format('d/m/Y')}}</td>
 
                 </tr>
