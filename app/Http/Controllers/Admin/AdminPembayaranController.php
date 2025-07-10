@@ -79,7 +79,14 @@ class AdminPembayaranController extends Controller
     }
     public function laporan()
     {
-        $pembayarans = Payment::with('siswa','tagihan')->get();
+        $pembayarans = Payment::with(['siswa', 'tagihan'])
+            ->whereNotNull('siswa_id')
+            ->whereHas('siswa')
+            ->whereHas('tagihan')
+            ->selectRaw('siswa_id, tagihan_id, SUM(nominal) as total_nominal')
+            ->groupBy('siswa_id', 'tagihan_id')
+            ->get();
+        //dd($pembayarans);
         return view('pembayaran.laporan', compact('pembayarans'));
     }
     public function tagihanEdit($id)

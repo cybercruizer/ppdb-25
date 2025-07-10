@@ -14,13 +14,13 @@
                 <td>Nominal Bayar</td>
                 <td>Tgl Bayar</td>
             </tr>
-            @foreach($pembayarans as $pembayaran=>$p)
+            @foreach($pembayarans as $key=>$p)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $key+1 }}</td>
                     <td>{{ strtoupper($p->siswa->nama) }}</td>
                     <td>{{ $p->siswa->no_pendaf }}</td>
                     <td>{{ $p->siswa->jurusan }}</td>
-                    <td><p class="rupiah">{{ $p->nominal }}</p></td>
+                    <td><p class="rupiah">{{ $p->total_nominal }}</p></td>
                     <td>{{\Carbon\Carbon::parse($p->created_at)->format('d/m/Y')}}</td>
 
                 </tr>
